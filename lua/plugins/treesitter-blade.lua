@@ -1,26 +1,15 @@
+-- lua/plugins/treesitter-blade.lua
 return {
   {
-    ...,
-  },
-  {
-    -- Add a Treesitter parser for Laravel Blade to provide Blade syntax highlighting.
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "blade",
         "php_only",
       })
-    end,
-    config = function(_, opts)
-      vim.filetype.add({
-        pattern = {
-          [".*%.blade%.php"] = "blade",
-        },
-      })
 
-      require("nvim-treesitter.configs").setup(opts)
-      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-      parser_config.blade = {
+      opts.parser_configs = opts.parser_configs or {}
+      opts.parser_configs.blade = {
         install_info = {
           url = "https://github.com/EmranMR/tree-sitter-blade",
           files = { "src/parser.c" },
@@ -28,6 +17,16 @@ return {
         },
         filetype = "blade",
       }
+    end,
+    config = function(_, opts)
+      -- The line below was causing the crash and should be removed.
+      -- vim.api.nvim_treesitter_start()
+
+      vim.filetype.add({
+        pattern = {
+          [".*%.blade%.php"] = "blade",
+        },
+      })
     end,
   },
 }
