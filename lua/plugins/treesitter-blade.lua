@@ -17,10 +17,6 @@ return {
         },
         filetype = "blade",
       }
-    end,
-    config = function(_, opts)
-      -- The line below was causing the crash and should be removed.
-      -- vim.api.nvim_treesitter_start()
 
       vim.filetype.add({
         pattern = {
