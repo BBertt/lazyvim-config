@@ -1,0 +1,1 @@
+/home/bertrandvw/.config/omarchy/current/theme/neovim.lua
